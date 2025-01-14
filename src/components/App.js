@@ -8,39 +8,37 @@ function App() {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    fetchQuestions();
-  }, []);
-
-  const fetchQuestions = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/questions");
-      const data = await response.json();
-      setQuestions(data);
-    } catch (error) {
-      console.error("Error fetching questions:", error);
+    if (page === "List") {
+      const fetchQuestions = async () => {
+        try {
+          const response = await fetch("http://localhost:4000/questions");
+          const data = await response.json();
+          setQuestions(data);
+        } catch (error) {
+          console.error("Error fetching questions:", error);
+        }
+      };
+      fetchQuestions();
     }
-  };
+  }, [page]);
 
   const handleAddQuestion = async (newQuestion) => {
-    // try {
-    //   const response = await fetch("http://localhost:4000/questions", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(newQuestion),
-    //   });
-  
-    //   if (!response.ok) {
-    //     throw new Error("Failed to add question");
-    //   }
-  
-    //   const data = await response.json();
-  
-      setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);  // Ensure state is updated with new question.
-    // } catch (error) {
-    //   console.error("Error adding question:", error);
-    // }
+    try {
+      const response = await fetch("http://localhost:4000/questions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newQuestion),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add question");
+      }
+      const data = await response.json();
+      setQuestions((prevQuestions) => [...prevQuestions, data]);
+    } catch (error) {
+      console.error("Error adding question:", error);
+    }
   };
 
   const handleDeleteQuestion = async (id) => {
@@ -48,8 +46,6 @@ function App() {
       await fetch(`http://localhost:4000/questions/${id}`, {
         method: "DELETE",
       });
-
-      
       setQuestions((prevQuestions) =>
         prevQuestions.filter((question) => question.id !== id)
       );
@@ -91,7 +87,6 @@ function App() {
           questions={questions}
           onDeleteQuestion={handleDeleteQuestion}
           onUpdateCorrectAnswer={handleUpdateCorrectAnswer}
-          setQuestions={setQuestions}
         />
       )}
     </main>
@@ -99,4 +94,5 @@ function App() {
 }
 
 export default App;
+
 

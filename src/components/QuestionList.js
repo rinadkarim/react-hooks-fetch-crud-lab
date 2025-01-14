@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import QuestionItem from "./QuestionItem";
 
-function QuestionList({ onDeleteQuestion, onUpdateCorrectAnswer, setQuestions, questions }) {
-
+function QuestionList({ onDeleteQuestion, onUpdateCorrectAnswer, questions }) {
   return (
     <section>
       <h1>Quiz Questions</h1>
@@ -21,3 +20,4 @@ function QuestionList({ onDeleteQuestion, onUpdateCorrectAnswer, setQuestions, q
 }
 
 export default QuestionList;
+
