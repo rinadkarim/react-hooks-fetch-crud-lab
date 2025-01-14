@@ -55,23 +55,29 @@ function QuestionForm({ onAddQuestion }) {
           value={formData.prompt}
           onChange={handleChange}
         />
+
         <label>Answers:</label>
         {formData.answers.map((answer, index) => (
-          <input
-            key={index}
-            type="text"
-            value={answer}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                answers: formData.answers.map((ans, idx) =>
-                  idx === index ? event.target.value : ans
-                ),
-              })
-            }
-          />
+          <div key={index}>
+            <label htmlFor={`answer-${index}`}>Answer {index + 1}</label>
+            <input
+              id={`answer-${index}`}
+              name={`answer-${index}`}
+              type="text"
+              value={answer}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  answers: formData.answers.map((ans, idx) =>
+                    idx === index ? event.target.value : ans
+                  ),
+                })
+              }
+            />
+          </div>
         ))}
-        <label htmlFor="correctIndex">Correct Index:</label>
+
+        <label htmlFor="correctIndex">Correct Answer:</label>
         <select
           id="correctIndex"
           name="correctIndex"
@@ -84,6 +90,7 @@ function QuestionForm({ onAddQuestion }) {
             </option>
           ))}
         </select>
+
         <button type="submit">Add Question</button>
       </form>
     </section>
@@ -91,3 +98,5 @@ function QuestionForm({ onAddQuestion }) {
 }
 
 export default QuestionForm;
+
+

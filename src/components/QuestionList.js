@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from "react";
 import QuestionItem from "./QuestionItem";
 
-function QuestionList({ onDeleteQuestion, onUpdateCorrectAnswer }) {
-  const [questions, setQuestions] = useState([]);
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/questions");
-        if (!response.ok) {
-          throw new Error("Failed to fetch questions");
-        }
-        const data = await response.json();
-        setQuestions(data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-
-    fetchQuestions();
-  }, []);
+function QuestionList({ onDeleteQuestion, onUpdateCorrectAnswer, setQuestions, questions }) {
 
   return (
     <section>

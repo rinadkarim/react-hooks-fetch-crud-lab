@@ -22,25 +22,25 @@ function App() {
   };
 
   const handleAddQuestion = async (newQuestion) => {
-    try {
-      const response = await fetch("http://localhost:4000/questions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newQuestion),
-      });
+    // try {
+    //   const response = await fetch("http://localhost:4000/questions", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(newQuestion),
+    //   });
   
-      if (!response.ok) {
-        throw new Error("Failed to add question");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("Failed to add question");
+    //   }
   
-      const data = await response.json();
+    //   const data = await response.json();
   
-      setQuestions((prevQuestions) => [...prevQuestions, data]);  // Ensure state is updated with new question.
-    } catch (error) {
-      console.error("Error adding question:", error);
-    }
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);  // Ensure state is updated with new question.
+    // } catch (error) {
+    //   console.error("Error adding question:", error);
+    // }
   };
 
   const handleDeleteQuestion = async (id) => {
@@ -91,6 +91,7 @@ function App() {
           questions={questions}
           onDeleteQuestion={handleDeleteQuestion}
           onUpdateCorrectAnswer={handleUpdateCorrectAnswer}
+          setQuestions={setQuestions}
         />
       )}
     </main>
